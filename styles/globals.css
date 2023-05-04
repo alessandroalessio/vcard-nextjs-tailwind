@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+	@apply dark:bg-[#252525] dark:text-white duration-200 ease-in-out transition-all;
+}
+
+.animation-fadeIn-fadeOut {
+	@apply bottom-4 opacity-100;
+}

@@ -1,0 +1,25 @@
+.darkModeToggleBtn ul {
+	@apply inline-flex gap-2 p-1 rounded-full cursor-pointer mb-4;
+}
+:global() .darkModeToggleBtn ul {
+	@apply bg-black/10;
+}
+:global(.dark) .darkModeToggleBtn ul {
+	@apply bg-white/10;
+}
+
+.darkModeToggleBtn li {
+	@apply rounded-full p-1 transition-all ease-in-out duration-100;
+}
+:global() .darkModeToggleBtnSun {
+	@apply bg-black/10;
+}
+:global(.dark) .darkModeToggleBtnSun {
+	@apply bg-transparent;
+}
+:global() .darkModeToggleBtnMoon {
+	@apply bg-transparent;
+}
+:global(.dark) .darkModeToggleBtnMoon {
+	@apply bg-white/10;
+}
