@@ -6,23 +6,32 @@ import SidebarFixed from 'components/SidebarFixed/SidebarFixed';
 import ItemClipboard from 'components/itemClipboard';
 import ItemLink from 'components/itemLink';
 import { baseFont, titleFont } from 'components/Fonts';
-import Trans from 'data/it/stringTranslations';
+const fs = require('fs');
 
 export async function getStaticProps() {
-	return {
-		props: {
-			SiteName: process.env.SITE_NAME,
-			FirstName: process.env.FIRST_NAME,
-			LastName: process.env.LAST_NAME,
-			Role: process.env.ROLE,
-		},
-	};
+	try {
+		const filePath =
+			'data/' + process.env.LANGUAGE + '/stringTranslations.json';
+		const translations = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+		return {
+			props: {
+				translations,
+			},
+		};
+	} catch (error) {
+		console.error('Error during reading of StringTranslations.js', error);
+		return {
+			props: {
+				translations: null,
+			},
+		};
+	}
 }
 
-export default function Home({ SiteName, FirstName, LastName, Role }) {
+export default function Home({ translations }) {
 	return (
 		<main className="md:flex md:justify-between">
-			<SidebarFixed firstName={FirstName} lastName={LastName} role={Role} />
+			<SidebarFixed translations={translations} />
 			<section className="w-4/6 mr-auto ml-auto md:mr-0 my-8 md:pr-8">
 				<div className="text-right hidden inline md:block">
 					<DarkModeToggleButton />
@@ -40,7 +49,7 @@ export default function Home({ SiteName, FirstName, LastName, Role }) {
 							<h2
 								className={titleFont.className + ' text-2xl font-bold'}
 							>
-								{Trans.contacts}
+								{translations.contacts}
 							</h2>
 						</header>
 						<div className="my-8">
@@ -63,7 +72,7 @@ export default function Home({ SiteName, FirstName, LastName, Role }) {
 								</li>
 								<li>
 									<ItemClipboard
-										label="Cell."
+										label={translations.labelPhone}
 										value="+39 371 4385203"
 										clipboard="00393714385203"
 									/>
@@ -83,7 +92,7 @@ export default function Home({ SiteName, FirstName, LastName, Role }) {
 							<h2
 								className={titleFont.className + ' text-2xl font-bold'}
 							>
-								{Trans.fiscalInformations}
+								{translations.fiscalInformations}
 							</h2>
 						</header>
 						<div className="my-8">
@@ -98,14 +107,14 @@ export default function Home({ SiteName, FirstName, LastName, Role }) {
 								</li>
 								<li>
 									<ItemClipboard
-										label="P.IVA"
+										label={translations.labelVat}
 										value="IT02476590068"
 										clipboard="IT02476590068"
 									/>
 								</li>
 								<li>
 									<ItemClipboard
-										label="C.F."
+										label={translations.labelCF}
 										value="LSSLSN86D29A182I"
 										clipboard="LSSLSN86D29A182I"
 									/>
@@ -132,7 +141,7 @@ export default function Home({ SiteName, FirstName, LastName, Role }) {
 							<h2
 								className={titleFont.className + ' text-2xl font-bold'}
 							>
-								{Trans.headquarter}
+								{translations.headquarter}
 							</h2>
 						</header>
 						<div className="my-8">
@@ -160,7 +169,7 @@ export default function Home({ SiteName, FirstName, LastName, Role }) {
 							<h2
 								className={titleFont.className + ' text-2xl font-bold'}
 							>
-								{Trans.personalLinks}
+								{translations.personalLinks}
 							</h2>
 						</header>
 						<div className="my-8">
